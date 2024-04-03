@@ -28,7 +28,7 @@ class MyLoginView(LoginView):
 class RegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
-    template_name = 'users/register.html'
+    template_name = 'users/order_create.html'
     success_url = reverse_lazy('users:confirm_email')
 
     def get_context_data(self, **kwargs):
