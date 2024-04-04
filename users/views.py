@@ -33,7 +33,7 @@ class RegisterView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Регистрация на сайте'
+        context['title'] = 'Registration'
         return context
 
     def form_valid(self, form):
