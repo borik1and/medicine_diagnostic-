@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div class="row col-12">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-3"></div>
+                        <div class="col-md-6">
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="card-title">
+                                        Order create
+                                    </h2>
+                                </div>
+                                <div class="card-body">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-success">Order create</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+    </form>
+</div>
+{% endblock %}
+
+{% block title %}
+   order creating
+{% endblock %}
+

@@ -1,0 +1,17 @@
+.carousel-image {
+    max-width: 30%; /* Ограничивает ширину изображения до 100% ширины родительского элемента */
+    height: auto; /* Установите высоту изображения на auto, чтобы сохранить пропорции */
+    margin: auto; /* Центрирует изображение по горизонтали */
+}
+
+
+.animated-section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animated-section.animate {
+    opacity: 1;
+    transform: translateY(0);
+}

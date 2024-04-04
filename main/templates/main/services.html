@@ -1,0 +1,93 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    /* Анимация для появления секций */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .animated-section {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s ease forwards;
+    }
+
+    /* Горизонтальное размещение карточек */
+    .select2-container--classic {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+
+    .col-4 {
+        width: calc(33.33% - 20px); /* Учитывается отступ между элементами */
+        margin-bottom: 20px;
+    }
+
+    /* Стили для карточек */
+    .card {
+        width: 100%;
+    }
+</style>
+
+<header>
+    <div class="text-center text-primary">
+        <h1>Medical Imaging Services</h1>
+    </div>
+</header>
+<div class="select2-container--classic mt-4">
+    <div class="col-4 animated-section">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">X-Ray Services</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+            <p class="card-text">Our state-of-the-art X-ray imaging services utilize advanced technology to provide accurate and detailed images, aiding in the diagnosis and treatment of various medical conditions.</p>
+            <a href="#" class="card-link"></a>
+            <a href="#" class="card-link"></a>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-4 animated-section">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">MRI Services</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+            <p class="card-text">Our MRI (magnetic resonance imaging) services utilize powerful magnets and radio waves to generate detailed images of the body's internal structures, helping healthcare providers diagnose and manage a wide range of conditions.</p>
+            <a href="#" class="card-link"></a>
+            <a href="#" class="card-link"></a>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-4 animated-section">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">CT Scan Services</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+            <p class="card-text">Our CT (computed tomography) scan services produce cross-sectional images of the body, offering valuable diagnostic information for conditions such as tumors, fractures, and internal injuries.</p>
+            <a href="#" class="card-link"></a>
+            <a href="#" class="card-link"></a>
+          </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Contact us today to schedule an appointment for our medical imaging services and experience the highest standard of care.</p>
+</footer>
+
+{% endblock %}
+
+{% block title %}
+   Services
+{% endblock %}
