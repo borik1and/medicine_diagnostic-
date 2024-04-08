@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<h1><span class="badge bg-secondary"></span></h1>
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'orders:order-create' %}">Order create</a>
+</div>
+<div class="row">
+    {% for object in object_list %}
+    {% if forloop.counter0|divisibleby:4 %}
+    </div><div class="row">
+    {% endif %}
+    <div class="col-md-3"> <!-- Уменьшил ширину колонки с 4 до 3 для того, чтобы уместить 4 колонки в ряд -->
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <p class="card-text">
+                <h3>Appointment {{ object.first_name }}</h3>
+                <div>
+                    <p class="card-text">
+                        Type of service: {{object.service}}
+                    </p>
+                    <p class="card-text">
+                        Date: {{object.order_date}}
+                    </p>
+                    <p class="card-text">
+                        Time: {{object.order_time}}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{% url 'orders:view' object.pk %}"
+                               class="btn btn-sm btn-outline-secondary">View</a>
+                            <a href="{% url 'orders:edit' object.pk %}"
+                               class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <a href="{% url 'orders:delete' object.pk %}"
+                               class="btn btn-sm btn-outline-secondary">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block title %}
+Order_list
+{% endblock %}

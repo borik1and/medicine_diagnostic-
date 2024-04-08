@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div class="alert alert-info" role="alert">
+    The order is successful!
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <a href="{% url 'main:main' %}">
+            <button class="btn btn-primary" type="button">Success</button>
+        </a>
+        <a href="{% url 'orders:order-create' %}">
+            <button class="btn btn-primary" type="button">Create any order</button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block title %}
+order success
+{% endblock %}

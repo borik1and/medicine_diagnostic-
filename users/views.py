@@ -15,7 +15,7 @@ from django.utils.encoding import force_bytes
 from config import settings
 from django.contrib.auth.forms import PasswordResetForm
 from django.views.generic.edit import FormView
-
+from django.contrib.auth import get_user_model
 
 MyUser = get_user_model()
 UserModel = get_user_model()
@@ -31,30 +31,28 @@ class RegisterView(CreateView):
     template_name = 'users/order_create.html'
     success_url = reverse_lazy('users:confirm_email')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Регистрация на сайте'
-        return context
-
     def form_valid(self, form):
-        user = form.save(commit=False)
-        user.is_active = False
-        user.save()
+        email = form.cleaned_data["email"]
 
-        # Функционал для отправки письма и генерации токена
-        token = default_token_generator.make_token(user)
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        activation_url = reverse_lazy('users:confirm_email', kwargs={'uidb64': uid, 'token': token})
-        current_site = get_current_site(self.request)
+        # Проверяем, существует ли пользователь с этим email
+        try:
+            user = UserModel.objects.get(email=email)
+            # Если пользователь уже существует, просто отправляем письмо для подтверждения email
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            activation_url = reverse_lazy('users:confirm_email', kwargs={'uidb64': uid, 'token': token})
+            current_site = get_current_site(self.request)
 
-        send_mail(
-            subject='Подтвердите свой электронный адрес',
-            message=f'Пожалуйста, перейдите по следующей ссылке, чтобы подтвердить свой адрес электронной почты: http://{current_site.domain}{activation_url}',
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[user.email],
-            fail_silently=False,
-        )
-        return redirect('users:email_confirmation_sent')
+            send_mail(
+                subject='Подтвердите свой электронный адрес',
+                message=f'Пожалуйста, перейдите по следующей ссылке, чтобы подтвердить свой адрес электронной почты: http://{current_site.domain}{activation_url}',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
+            return redirect('users:email_confirmation_sent')
+        except UserModel.DoesNotExist:
+            return super().form_valid(form)
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):
@@ -135,4 +133,3 @@ class CustomPasswordResetView(FormView):
         send_mail(subject, message, from_email=settings.EMAIL_HOST_USER, recipient_list=[user.email])
 
         return super().form_valid(form)
-

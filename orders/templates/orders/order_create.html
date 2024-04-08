@@ -1,34 +1,40 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
 
-<div class="row col-12">
-    <form class="row" method="post" enctype="multipart/form-data">
-        <div class="col-3"></div>
-                        <div class="col-md-6">
+  <script>
+    function updateOrderTimes() {
+        var orderDateField = document.getElementById('id_order_date');
+        var orderTimeField = document.getElementById('id_order_time');
 
-                            <div class="card">
-                                <div class="card-header">
-                                    <h2 class="card-title">
-                                        Order create
-                                    </h2>
-                                </div>
-                                <div class="card-body">
-                                    {% csrf_token %}
-                                    {{ form.as_p }}
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-success">Order create</button>
-                                </div>
-                            </div>
-                        </div>
+        orderTimeField.innerHTML = ''; // Очищаем список доступных временных интервалов
 
+        var selectedDate = orderDateField.value;
 
-    </form>
-</div>
+        // Отправляем запрос на сервер для получения доступных временных интервалов на выбранную дату
+        fetch('/orders/get-available-times/?selected_date=' + selectedDate)
+            .then(response => response.json())
+            .then(data => {
+                // Добавляем полученные временные интервалы в список
+                data.available_times.forEach(function(time) {
+                    var option = document.createElement('option');
+                    option.text = time[1];
+                    option.value = time[0];
+                    orderTimeField.add(option);
+                });
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Добавляем обработчик события изменения даты
+        var orderDateField = document.getElementById('id_order_date');
+        orderDateField.addEventListener('change', updateOrderTimes);
+    });
+</script>
+
 {% endblock %}
-
-{% block title %}
-   order creating
-{% endblock %}
-

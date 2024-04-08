@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+
+<div class="row">
+    <div class="-col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <p>Do you want to cancel the appointment? "{{ object.first_name }}"?</p>
+                            <button type="submit" class="btn btn-success">Success</button>
+                            <a href="{% url 'orders:list' %}" class="btn btn-warning">Cancel</a>
+
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block title %}
+    Материал
+{% endblock %}

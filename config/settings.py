@@ -144,7 +144,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'users/'
 
-# параметры email to send
+# parameters email to send
 EMAIL_USE_TLS = True
 EMAIL_HOST = config('EMAIL_HOST', default='')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
@@ -152,7 +152,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_PORT = 587
 
 
-# Кеширование
+# Caching
 CACHE_ENABLED = True
 if CACHE_ENABLED:
     CACHES = {
