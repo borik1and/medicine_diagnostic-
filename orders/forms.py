@@ -49,26 +49,3 @@ def order_form_view(request):
         form = OrderForm()
 
     return render(request, 'order_form.html', {'form': form})
-
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     selected_date = cleaned_data.get('order_date')
-    #     print('cleaned_data:', cleaned_data)
-    #     print('selected_date:', selected_date)
-    #     if selected_date:
-    #         # Получаем все заказы на выбранную дату
-    #         orders_on_date = Order.objects.filter(order_date=selected_date)
-    #         booked_starts = [order.order_time.strftime('%H:%M') for order in orders_on_date]
-    #
-    #         # Преобразовываем TIME_CHOICES в список строк времени
-    #         time_choices_strings = [time for time, _ in TIME_CHOICES]
-    #
-    #         # Если на выбранную дату нет заказов, используем все доступные временные интервалы из TIME_CHOICES
-    #         if not orders_on_date:
-    #             available_times = TIME_CHOICES
-    #         else:
-    #             # Формируем доступные временные интервалы на основе TIME_CHOICES и уже забронированных времен
-    #             available_times = [(time, time) for time in time_choices_strings if time not in booked_starts]
-    #             print('available_times:', available_times)
-    #         self.fields['order_time'].choices = available_times
-    #     return cleaned_data
