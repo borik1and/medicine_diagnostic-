@@ -6,6 +6,7 @@
 <div class="col-12 mb-5">
     <a class="btn btn-outline-primary" href="{% url 'orders:order-create' %}">Order create</a>
 </div>
+
 <div class="row">
     {% for object in object_list %}
     {% if forloop.counter0|divisibleby:4 %}
