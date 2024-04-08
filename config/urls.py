@@ -23,8 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('main.urls', 'main'), namespace='main')),
     path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
-    path('users/', include(('users.urls', 'users'), namespace='users')),
-
+    path('users/', include('users.urls', namespace='users')),
 ]
 
 # Добавление обслуживания медиафайлов в режиме разработки

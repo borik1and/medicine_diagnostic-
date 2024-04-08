@@ -1,4 +1,7 @@
+
 from django.contrib.auth.forms import UserModel
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
@@ -76,15 +79,30 @@ class OrderSuccessView(ListView):
     template_name = 'orders/order_success.html'
 
 
-class OrderListView(ListView):
+class OrderListView(LoginRequiredMixin, ListView):
     model = Order
 
+    def dispatch(self, request, *args, **kwargs):
+        print(self.request.user)
+        return super().dispatch(request, *args, **kwargs)
 
-class OrderDetailView(DetailView):
+
+class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
 
+    def get_queryset(self):
+        # Возвращаем только заказы текущего пользователя
+        return self.model.objects.filter(user=self.request.user)
 
-class OrderUpdateView(UpdateView):
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        # Проверяем, что пользователь имеет доступ к заказу
+        if obj.user != self.request.user:
+            raise PermissionDenied
+        return obj
+
+
+class OrderUpdateView(LoginRequiredMixin, UpdateView):
     model = Order
     form_class = OrderForm
     template_name = 'orders/order_create.html'
@@ -103,7 +121,7 @@ class OrderUpdateView(UpdateView):
         return reverse('orders:view', args=[self.kwargs.get('pk')])
 
 
-class OrderDeleteView(DeleteView):
+class OrderDeleteView(LoginRequiredMixin, DeleteView):
     model = Order
     success_url = reverse_lazy('orders:list')
 
