@@ -9,31 +9,32 @@
 
   <script>
     function updateOrderTimes() {
-      var orderDateField = document.getElementById('id_order_date');
-      var orderTimeField = document.getElementById('id_order_time');
+        var orderDateField = document.getElementById('id_order_date');
+        var orderTimeField = document.getElementById('id_order_time');
 
-      orderTimeField.innerHTML = ''; // Очищаем список доступных временных интервалов
+        orderTimeField.innerHTML = ''; // Очищаем список доступных временных интервалов
 
-      var selectedDate = orderDateField.value;
+        var selectedDate = orderDateField.value;
 
-      // Отправляем запрос на сервер для получения доступных временных интервалов на выбранную дату
-      fetch('/get-available-times/?date=' + selectedDate)
-        .then(response => response.json())
-        .then(data => {
-          // Добавляем полученные временные интервалы в список
-          data.forEach(function(time) {
-            var option = document.createElement('option');
-            option.text = time;
-            option.value = time;
-            orderTimeField.add(option);
-          });
-        });
+        // Отправляем запрос на сервер для получения доступных временных интервалов на выбранную дату
+        fetch('/orders/get-available-times/?selected_date=' + selectedDate)
+            .then(response => response.json())
+            .then(data => {
+                // Добавляем полученные временные интервалы в список
+                data.available_times.forEach(function(time) {
+                    var option = document.createElement('option');
+                    option.text = time[1];
+                    option.value = time[0];
+                    orderTimeField.add(option);
+                });
+            });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      // Добавляем обработчик события изменения даты
-      var orderDateField = document.getElementById('id_order_date');
-      orderDateField.addEventListener('change', updateOrderTimes);
+        // Добавляем обработчик события изменения даты
+        var orderDateField = document.getElementById('id_order_date');
+        orderDateField.addEventListener('change', updateOrderTimes);
     });
-  </script>
+</script>
+
 {% endblock %}

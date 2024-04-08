@@ -3,6 +3,7 @@ from .models import Order
 from django.shortcuts import render
 
 # Ваши доступные временные интервалы
+
 TIME_CHOICES = [
     ('09:00', '09:00'), ('09:30', '09:30'), ('10:00', '10:00'), ('10:30', '10:30'),
     ('11:00', '11:00'), ('11:30', '11:30'), ('12:00', '12:00'), ('12:30', '12:30'),
@@ -31,23 +32,23 @@ class OrderForm(StyleFormMixin, forms.ModelForm):
             'order_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
-    def order_form_view(request):
-        if request.method == 'POST':
-            form = OrderForm(request.POST)
-            if form.is_valid():
-                # Обработка валидной формы
-                form.save()
-        else:
-            form = OrderForm()
-
-        return render(request, 'order_form.html', {'form': form})
-
     def __init__(self, *args, **kwargs):
         time_choices = kwargs.pop('time_choices', None)
         super().__init__(*args, **kwargs)
         if time_choices:
             self.fields['order_time'].choices = time_choices
 
+
+def order_form_view(request):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            # Обработка валидной формы
+            form.save()
+    else:
+        form = OrderForm()
+
+    return render(request, 'order_form.html', {'form': form})
 
     # def clean(self):
     #     cleaned_data = super().clean()
