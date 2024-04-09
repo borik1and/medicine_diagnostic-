@@ -33,13 +33,13 @@ class OrdercreateView(CreateView):
         try:
             user = User.objects.get(email=email)
             order = Order.objects.create(email=email, service=service, first_name=first_name)
-            subject = 'New order has been created | Medical Diagnostic Services'
-            message = (f'Dear {order.first_name},\n'
-                       f' Thank you for order. \n '
-                       f'Your appointment details: \n'
-                       f' Type of service: {order.service} \n'
-                       f' Date: \n'
-                       f' Time: \n'
+            subject = 'Your appointment has been confirmed | Medical Diagnostic Services'
+            message = (f'Hey {order.first_name},\n'
+                       f' Thank you for scheduling with us.\n '
+                       f'Your appointment details:\n'
+                       f' Type of service: {order.service}\n'
+                       f' Date: {order.order_date}\n'
+                       f' Time: {order.order_time}\n'
                        f'To check your results or to cancel an appointment, please log in to our system and use your'
                        f' email address and the following password')
             send_mail(subject, message, from_email=settings.EMAIL_HOST_USER, recipient_list=[email])
@@ -54,13 +54,13 @@ class OrdercreateView(CreateView):
             user.save()
 
             # Отправляем письмо с паролем
-            subject = 'New order has been created | Medical Diagnostic Services'
-            message = (f'Dear {order.first_name},\n'
-                       f' Thank you for order. \n '
-                       f'Your appointment details: \n'
-                       f' Type of service: {order.service} \n'
-                       f' Date: \n'
-                       f' Time: \n'
+            subject = 'Your appointment has been confirmed | Medical Diagnostic Services'
+            message = (f'Hey {order.first_name},\n'
+                       f' Thank you for scheduling with us.\n '
+                       f'Your appointment details:\n'
+                       f' Type of service: {order.service}\n'
+                       f' Date: {order.order_date}\n'
+                       f' Time: {order.order_time}\n'
                        f'To check your results or to cancel an appointment, please log in to our system and use your'
                        f' email address and the following password: {new_password}')
 
