@@ -1,4 +1,3 @@
-
 from django.contrib.auth.forms import UserModel
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
@@ -11,6 +10,8 @@ from orders.models import Order
 from users.models import User
 from orders.forms import OrderForm, TIME_CHOICES
 from django.http import JsonResponse
+
+SUBJECT = 'Your appointment has been confirmed | Medical Diagnostic Services'
 
 
 class OrdercreateView(CreateView):
@@ -25,6 +26,7 @@ class OrdercreateView(CreateView):
         return kwargs
 
     def form_valid(self, form):
+
         email = form.cleaned_data['email']
         service = form.cleaned_data['service']
         first_name = form.cleaned_data['first_name']
@@ -33,7 +35,13 @@ class OrdercreateView(CreateView):
         try:
             user = User.objects.get(email=email)
             order = Order.objects.create(email=email, service=service, first_name=first_name)
-            subject = 'Your appointment has been confirmed | Medical Diagnostic Services'
+
+            # Генерируем случайный пароль
+            new_password = UserModel.objects.make_random_password()
+            user.set_password(new_password)
+            user.save()
+
+            subject = SUBJECT
             message = (f'Hey {order.first_name},\n'
                        f' Thank you for scheduling with us.\n '
                        f'Your appointment details:\n'
@@ -41,7 +49,7 @@ class OrdercreateView(CreateView):
                        f' Date: {order.order_date}\n'
                        f' Time: {order.order_time}\n'
                        f'To check your results or to cancel an appointment, please log in to our system and use your'
-                       f' email address and the following password')
+                       f' email address and the following password: {new_password}')
             send_mail(subject, message, from_email=settings.EMAIL_HOST_USER, recipient_list=[email])
         except UserModel.DoesNotExist:
             # Если пользователь не существует, создаем нового пользователя
@@ -54,7 +62,7 @@ class OrdercreateView(CreateView):
             user.save()
 
             # Отправляем письмо с паролем
-            subject = 'Your appointment has been confirmed | Medical Diagnostic Services'
+            subject = SUBJECT
             message = (f'Hey {order.first_name},\n'
                        f' Thank you for scheduling with us.\n '
                        f'Your appointment details:\n'
@@ -81,6 +89,10 @@ class OrderSuccessView(ListView):
 
 class OrderListView(LoginRequiredMixin, ListView):
     model = Order
+
+    def get_queryset(self):
+        # Возвращаем только заказы текущего пользователя
+        return self.model.objects.filter(user=self.request.user)
 
     def dispatch(self, request, *args, **kwargs):
         print(self.request.user)

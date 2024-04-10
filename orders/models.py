@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 SERVICE_CHOICES = (
@@ -11,6 +13,7 @@ SERVICE_CHOICES = (
 
 
 class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     email = models.EmailField(max_length=250)
     first_name = models.CharField(max_length=50, default='')
     last_name = models.CharField(max_length=100, **NULLABLE)

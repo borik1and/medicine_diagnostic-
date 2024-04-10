@@ -16,7 +16,7 @@ class StyleFormMixin:
                 field.widget.attrs['class'] = 'form-control'
 
 
-class AuthenticationForm(DjangoAuthenticationForm):
+class AuthenticationForm(StyleFormMixin, DjangoAuthenticationForm):
     def clean(self):
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
