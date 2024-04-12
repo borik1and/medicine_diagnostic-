@@ -30,11 +30,14 @@ class OrdercreateView(CreateView):
         email = form.cleaned_data['email']
         service = form.cleaned_data['service']
         first_name = form.cleaned_data['first_name']
+        order_date = form.cleaned_data['order_date']
+        order_time = form.cleaned_data['order_time']
 
         # Проверяем, существует ли пользователь с таким email
         try:
             user = User.objects.get(email=email)
-            order = Order.objects.create(email=email, service=service, first_name=first_name)
+            order = Order.objects.create(email=email, service=service, first_name=first_name, order_date=order_date,
+                                         order_time=order_time)
 
             # Генерируем случайный пароль
             new_password = UserModel.objects.make_random_password()
