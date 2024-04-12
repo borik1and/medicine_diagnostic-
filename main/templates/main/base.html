@@ -35,17 +35,19 @@
                     <a class="nav-link" href="{% url 'main:services' %}" style="font-size: 30px;">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'orders:order-create' %}" style="font-size: 30px;">Order</a>
+                    <a class="nav-link" href="{% url 'orders:order-create' %}" style="font-size: 30px;">Schedule</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'orders:list' %}" style="font-size: 30px;">Appointments</a>
+                    <a class="nav-link" href="{% url 'orders:list' %}" style="font-size: 30px;">Log in</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'users:logout' %}"
-                       style="font-size: 30px;">Logout</a>
-                </li>
-
+                {% if user.is_authenticated %}
+                <div class="col-3">
+                    <form class="text-end" action="{% url 'users:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link" style="font-size: 30px;">Log out</button>
+                    </form>
+                </div>
+                {% endif %}
             </ul>
             <div class="container">
                 <hr>

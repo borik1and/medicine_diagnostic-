@@ -1,40 +1,54 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-  <form method="post">
+<form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button>
-  </form>
+</form>
 
-  <script>
+<script>
+    var updateOrderTimesTimeout = null;
+
     function updateOrderTimes() {
-        var orderDateField = document.getElementById('id_order_date');
-        var orderTimeField = document.getElementById('id_order_time');
+        if (updateOrderTimesTimeout !== null) {
+            // Если таймаут уже запущен, отменяем его
+            clearTimeout(updateOrderTimesTimeout);
+        }
 
-        orderTimeField.innerHTML = ''; // Очищаем список доступных временных интервалов
+        // Устанавливаем новый таймаут для выполнения запроса через 500 мс после последнего изменения даты
+        updateOrderTimesTimeout = setTimeout(function () {
+            var orderDateField = document.getElementById('id_order_date');
+            var selectedDate = orderDateField.value;
 
-        var selectedDate = orderDateField.value;
+            // Отправляем запрос на сервер для получения доступных временных интервалов на выбранную дату
+            fetch('/orders/get-available-times/?selected_date=' + selectedDate)
+                .then(response => response.json())
+                .then(data => {
+                    var orderTimeField = document.getElementById('id_order_time');
+                    // Очищаем список доступных временных интервалов перед добавлением новых
+                    orderTimeField.innerHTML = '';
 
-        // Отправляем запрос на сервер для получения доступных временных интервалов на выбранную дату
-        fetch('/orders/get-available-times/?selected_date=' + selectedDate)
-            .then(response => response.json())
-            .then(data => {
-                // Добавляем полученные временные интервалы в список
-                data.available_times.forEach(function(time) {
-                    var option = document.createElement('option');
-                    option.text = time[1];
-                    option.value = time[0];
-                    orderTimeField.add(option);
+                    // Добавляем полученные временные интервалы в список
+                    data.available_times.forEach(function (time) {
+                        var option = document.createElement('option');
+                        option.text = time[1];
+                        option.value = time[0];
+                        orderTimeField.add(option);
+                    });
                 });
-            });
+        }, 500); // Задержка в миллисекундах
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Добавляем обработчик события изменения даты
         var orderDateField = document.getElementById('id_order_date');
         orderDateField.addEventListener('change', updateOrderTimes);
     });
+
+    // Вызываем функцию обновления временных интервалов для выбранной даты при загрузке страницы
+    updateOrderTimes();
 </script>
+
 
 {% endblock %}
