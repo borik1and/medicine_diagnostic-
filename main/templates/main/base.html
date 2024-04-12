@@ -37,9 +37,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'orders:order-create' %}" style="font-size: 30px;">Schedule</a>
                 </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'orders:list' %}" style="font-size: 30px;">My appointments</a>
+                </li>
+                {% else  %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'orders:list' %}" style="font-size: 30px;">Log in</a>
                 </li>
+                {% endif %}
                 {% if user.is_authenticated %}
                 <div class="col-3">
                     <form class="text-end" action="{% url 'users:logout' %}" method="post">
