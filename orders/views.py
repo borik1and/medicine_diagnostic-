@@ -148,7 +148,6 @@ def get_available_times(request):
         return JsonResponse({'error': 'No date provided'}, status=400)
 
     orders_on_date = Order.objects.filter(order_date=selected_date)
-    # booked_starts = [order.order_time.strftime('%H:%M') for order in orders_on_date]
     booked_starts = [order.order_time.strftime('%H:%M') for order in orders_on_date if order.order_time]
     time_choices_strings = [time for time, _ in TIME_CHOICES]
     available_times = [(time, time) for time in time_choices_strings if time not in booked_starts]
