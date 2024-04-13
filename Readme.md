@@ -1,20 +1,20 @@
-# Medicine Diagnostic
+# Medical Diagnostic
 
 ## Overview
 
-Medicine Diagnostic is a Django web application designed for scheduling medical examinations with specified dates and
-times. The application also sends an email to the user with a reminder of their appointment and a password for accessing
-the system. Within the system, users can delete or modify their examination appointments.
+Medical Diagnostic is a Django web application designed for scheduling medical examinations with specified devices,date and
+time. The application also sends an email to the user with a confirmation of their appointment and a password for accessing
+the system. Within the system, users can cancel or modify their appointments.
 
 ## Features
 
-- **Appointment Scheduling**: Users can schedule medical examinations, specifying the date, time, and their contact
+- **Appointment Scheduling**: Users can schedule medical examinations, specifying date, time, and their contact
   information.
-- **Email Reminders**: The application automatically sends an email to the user with a reminder of their appointment and
-  a password for accessing the system.
-- **Appointment Management**: Users can log in to the system to view, modify, or delete their examination appointments.
+- **Email Confirmation**: The application automatically sends an email to the user with a confirmation of their appointment and
+  a unique password for accessing the system.
+- **Appointment Management**: Users can log in to the system to view, change, or cancel their appointments.
 - **User Authentication**: Secure user authentication system for protecting their data.
-- **Admin Panel**: Django admin panel for managing users, examination appointments, and emails.
+- **Admin Panel**: Django admin panel for managing users, appointments, and emails.
 
 ## Installation
 
