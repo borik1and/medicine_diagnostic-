@@ -1,41 +1,30 @@
-<title>About Medical Services</title>
 {% extends 'main/base.html' %}
 {% block content %}
-{% load static %}
-
-<ul class="nav justify-content-center mt-4">
-    <main>
-        <section>
-            <h2>Our Mission</h2>
-            <p>At MD Medical Services, our mission is to provide accessible and high-quality medical diagnostic services to all
-                individuals, regardless of their background or financial status. We believe that everyone deserves
-                access to the best medical care possible, and we strive to make that a reality through our services.</p>
-        </section>
-        <section>
-            <h2>Our Services</h2>
-            <p>We offer a wide range of medical diagnostic services to meet the diverse needs of our patients. From X-RAY
-                and CT scans to professional diagnostics, our team of experienced professionals is dedicated to
-                providing comprehensive care that prioritizes the well-being of our patients.</p>
-        </section>
-        <section>
-            <h2>Why Choose Us?</h2>
-            <p>There are many reasons to choose MD Medical Services for your diagnostic needs:</p>
-            <ul>
-                <li>Experienced and compassionate staff</li>
-                <li>State-of-the-art facilities</li>
-                <li>Convenient appointment scheduling</li>
-                <li>Affordable pricing options</li>
-                <li>Commitment to patient satisfaction</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>Contact us today to learn more about our medical services and how we can help you achieve optimal health and
-            wellness.</p>
-    </footer>
-</ul>
+<main class="about-content">
+    <section class="mission">
+        <h2>Our Mission</h2>
+        <p>At MD Medical Services, our mission is to provide accessible and high-quality medical diagnostic services to all individuals, regardless of their background or financial status. We believe that everyone deserves access to the best medical care possible, and we strive to make that a reality through our services.</p>
+    </section>
+    <section class="services">
+        <h2>Our Services</h2>
+        <p>We offer a wide range of medical diagnostic services to meet the diverse needs of our patients. From X-RAY and CT scans to professional diagnostics, our team of experienced professionals is dedicated to providing comprehensive care that prioritizes the well-being of our patients.</p>
+    </section>
+    <section class="why-choose-us">
+        <h2>Why Choose Us?</h2>
+        <p>There are many reasons to choose MD Medical Services for your diagnostic needs:</p>
+        <ul>
+            <li>Experienced and compassionate staff</li>
+            <li>State-of-the-art facilities</li>
+            <li>Convenient appointment scheduling</li>
+            <li>Affordable pricing options</li>
+            <li>Commitment to patient satisfaction</li>
+        </ul>
+    </section>
+</main>
+<footer class="footer">
+    <p>Contact us today to learn more about our medical services and how we can help you achieve optimal health and wellness.</p>
+</footer>
 {% endblock %}
-
 {% block title %}
-    About
+    About Medical Services
 {% endblock %}
