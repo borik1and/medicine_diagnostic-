@@ -2,18 +2,37 @@
 {% block content %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<div class="col-12">
+    <div class="row">
+        <div class="col-5">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'media/4.jpg' %}" class="d-block w-100 carousel-image" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'media/5.jpg' %}" class="d-block w-100 carousel-image" alt="...">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="text-body-secondary">
+                <h1>Welcome to  MD Diagnostic Services - Where Care Meets Precision Diagnosis!</h1>
+                <p>Welcome to MD Diagnostics, where your health and peace of mind are our top priorities. Our state-of-the-art medical diagnostic center specializes in providing precise and reliable MRI, X-RAY, and CT scan services to ensure comprehensive care for our patients. </p>
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="{% static 'media/4.jpg' %}" class="d-block w-100 carousel-image" alt="...">
+<p> Our team of certified radiologists and technologists are dedicated to delivering the highest standard of diagnostic accuracy. With advanced imaging technology, we offer a seamless experience from appointment scheduling to result interpretation. Our MRI scans provide detailed images of soft tissues, organs, and bones, aiding in the diagnosis of complex conditions with exceptional clarity. Our X-RAY services are quick and efficient, perfect for detecting fractures and monitoring the progression of diseases. The CT scans at Lifespan Diagnostics offer a unique combination of speed and high-resolution images, making them indispensable in emergency situations and for planning surgical procedures. </p>
+    <p> At MD Diagnostics, we understand the importance of timely and accurate results. That’s why we’ve streamlined our processes to ensure fast turnaround times without compromising quality. Your comfort and safety are our utmost concern, and we adhere to strict protocols to minimize radiation exposure. </p>
+
+<p> Choose MD Diagnostics for a partner in your healthcare journey, where professional care meets cutting-edge technology. Let us assist you in taking the first step towards a healthier future. </p>
+
+
+            </div>
+        </div>
     </div>
-    <div class="carousel-item">
-      <img src="{% static 'media/5.jpg' %}" class="d-block w-100 carousel-image" alt="...">
-    </div>
-  </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
