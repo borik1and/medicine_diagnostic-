@@ -38,6 +38,8 @@ the system. Within the system, users can cancel or modify their appointments.
     ```bash
    python manage.py migrate
    
+5. You should rename ".env-example" to ".env" and fill in the data.
+   
 ## Usage
 
 1. Run the Django development server:
