@@ -21,3 +21,4 @@ class Order(models.Model):
     service = models.CharField(max_length=20, choices=SERVICE_CHOICES)
     order_date = models.DateField(default=timezone.now)
     order_time = models.TimeField(default=None, **NULLABLE)
+    results = models.TextField(**NULLABLE)
