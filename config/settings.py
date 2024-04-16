@@ -82,8 +82,8 @@ config = Config(RepositoryEnv(ENVPATH))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'medicine_diagnostic',
-        'HOST': 'localhost',
+        'NAME': config('NAME', default=''),
+        'HOST': config('HOST', default=''),
         'USER': config('P_USER', default=''),
         'PASSWORD': config('P_PASSWORD', default=''),
 
@@ -114,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-en'
+LANGUAGE_CODE = config('LANGUAGE_CODE', default='')
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = config('TIME_ZONE', default='')
 
 USE_I18N = True
 
@@ -149,7 +149,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = config('EMAIL_HOST', default='')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
-EMAIL_PORT = 587
+EMAIL_PORT = config('EMAIL_PORT', default='')
 
 
 # Caching
@@ -158,7 +158,7 @@ if CACHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": "redis://127.0.0.1:6379",
+            "LOCATION": config('LOCATION', default=''),
             "TIMEOUT": 300  # Ручная регулировка времени жизни кеша в секундах, по умолчанию 300
         }
     }
