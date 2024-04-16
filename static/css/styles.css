@@ -15,3 +15,8 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+
+.page-content {
+    margin-bottom: 150px; /* Установите желаемый отступ снизу страницы (например, 80 пикселей) */
+}
