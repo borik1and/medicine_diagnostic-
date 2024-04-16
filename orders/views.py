@@ -91,7 +91,6 @@ class OrderSuccessView(ListView):
 
 class OrderListView(LoginRequiredMixin, ListView):
     model = Order
-    paginate_by = 10  # Количество заказов на одной странице
 
     def get_queryset(self):
         # Возвращаем только заказы текущего пользователя
