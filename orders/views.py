@@ -38,7 +38,6 @@ class OrdercreateView(CreateView):
             user = User.objects.get(email=email)
             order = Order.objects.create(email=email, service=service, first_name=first_name, order_date=order_date,
                                          order_time=order_time)
-
             # Генерируем случайный пароль
             new_password = UserModel.objects.make_random_password()
             user.set_password(new_password)
@@ -92,13 +91,13 @@ class OrderSuccessView(ListView):
 
 class OrderListView(LoginRequiredMixin, ListView):
     model = Order
+    paginate_by = 10  # Количество заказов на одной странице
 
     def get_queryset(self):
         # Возвращаем только заказы текущего пользователя
         return self.model.objects.filter(user=self.request.user)
 
     def dispatch(self, request, *args, **kwargs):
-        print(self.request.user)
         return super().dispatch(request, *args, **kwargs)
 
 
